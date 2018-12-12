@@ -1,0 +1,10 @@
+FROM mariadb
+
+# ENV MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
+ENV	MYSQL_ROOT_PASSWORD: "secret"
+ENV	MYSQL_DATABASE: "test"
+ENV	MYSQL_USER: "mysql"
+ENV	MYSQL_PASSWORD: "mysql"
+
+
+ADD dump.sql /docker-entrypoint-initdb.d
