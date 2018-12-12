@@ -90,7 +90,7 @@ let requestSegments = req.originalUrl.split('?')[0].split('/');
 			var data = await maid.db_sync(sql);
 			var price_subtotal = 0, grand_total = 0, total_tax = 0, header = {},list={};
 			if(!data.length){
-				req.send({});
+				res.send({});
 				return;
 			}
 				
