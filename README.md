@@ -1,6 +1,6 @@
 * Installment
 - git clone
-- pointing your docker console to where this project pulled -- type "docker-compose up"
+- pointing your docker console to where this project pulled -- type "docker-compose up --build -d"
 - make some coffee.. seriously, it takes a while until its db up ready for running. i think i use "wait-for-it.sh" in a wrong way
 
 * Usage
