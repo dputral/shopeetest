@@ -112,6 +112,7 @@ let requestSegments = req.originalUrl.split('?')[0].split('/');
 				page.grand_total =+ temporary.amount;
 				
 				list["item_"+i]=data[i];
+				Object.assign(list["item_"+i],temporary);
 				data[i] = Object.assign({},data[i],temporary);
 				// reorder
 				var reorder = []
