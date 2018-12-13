@@ -11,12 +11,18 @@ for browser usage with "NOT Fancy UI",
 - 	see inserted data list through /model/list, Ex: http://192.168.99.100:22122/model/list
 
 for Poster-user,
--	query parameter "cli=1" on endpoint url address IS mandatory
+-	query parameter `cli=1` on endpoint url address IS mandatory
 - 	insert data:
-	POST /model/input?cli=1 HTTP/1.1 
-	Content-Type: application/x-www-form-urlencoded
+	` POST /model/input?cli=1 HTTP/1.1 
+	Content-Type: application/x-www-form-urlencoded `
 	
-	*	parameter : name=varchar(255)&tax_code=enum(1,2,3)&price=int(10)
+	*	parameter : 
+		1. name : varchar(255)
+		2. tax_code : enum(1,2,3)
+		3. price : int(10)
+		
+	Ex: `name=varchar(255)&tax_code=enum(1,2,3)&price=int(10)`
+	
 	* 	expected properties : 
 ```javascript
 {
@@ -26,7 +32,7 @@ for Poster-user,
 }
 ```
 -	list data:
-	GET /model/list?cli=1 HTTP/1.1 
+	`GET /model/list?cli=1 HTTP/1.1 `
 	
 	*	parameter : (none)
 	*	expected properties : 
