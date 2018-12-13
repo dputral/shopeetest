@@ -10,19 +10,20 @@ for browser usage with "NOT Fancy UI",
 - 	see inserted data list through /model/list, Ex: http://192.168.99.100:22122/model/list
 
 for Poster-fan,
+-	query parameter "cli=1" on endpoint url address IS mandatory
 - 	insert data:
-	POST /model/input HTTP/1.1 
+	POST /model/input?cli=1 HTTP/1.1 
 	Content-Type: application/x-www-form-urlencoded
 	
 	*	parameter : name=varchar(255)&tax_code=enum(1,2,3)&price=int(10)
 	* 	expected properties : 
 			{
-				"status":int(0,1),
+				"status":enum(0,1),
 				"message": string("data ['name','tax_code','price'] empty","insert success"),
 				"insertId": int(~) // when "status"=1
 			}
 -	list data:
-	GET /model/list HTTP/1.1 
+	GET /model/list?cli=1 HTTP/1.1 
 	
 	*	parameter : (none)
 	*	expected properties : 
@@ -32,18 +33,9 @@ for Poster-fan,
 				  "price_subtotal":int(~),
 				  "grand_total":float(~)
 			   },
-			   "header":[
-				  "name",
-				  "tax_code",
-				  "type",
-				  "refundable",
-				  "price",
-				  "tax",
-				  "amount"
-			   ],
-			   "item":{
-				  "item_0":{
-					 "id":1,
+			   "item":[
+					{
+					 "id":int(~),
 					 "name":string("A-z"),
 					 "tax_code":int(~),
 					 "type":enum(1,2,3),
@@ -51,10 +43,10 @@ for Poster-fan,
 					 "price":int(~),
 					 "tax":int(~),
 					 "amount":int(~),
-				  },
-				  "item_1":..,
-				  "item_2":..
-			   }
+					},
+					{...},
+					{...}
+			   ]
 			}
 
 database scheme on root dir "db.story"

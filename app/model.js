@@ -90,10 +90,16 @@ let requestSegments = req.originalUrl.split('?')[0].split('/');
 			var data = await maid.db_sync(sql);
 			var price_subtotal = 0, grand_total = 0, total_tax = 0, header = {},list={};
 			if(!data.length){
-				res.send({});
+			
+				if(query['cli']){
+					res.send([]);
+					return;
+				}
+				
+				res.send('Data kosong, mohon mengisi <a href="/model/input">disini</a> ')
 				return;
 			}
-				
+			
 			for(var i = 0; i < (data.length); i++ ){
 				var temporary = null,page = {total_tax:0,price_subtotal:0,grand_total:0};
 				switch(data[i].tax_code){
@@ -111,11 +117,12 @@ let requestSegments = req.originalUrl.split('?')[0].split('/');
 				page.price_subtotal =+ data[i].price;
 				page.grand_total =+ temporary.amount;
 				
-				list["item_"+i]=data[i];
-				Object.assign(list["item_"+i],temporary);
 				data[i] = Object.assign({},data[i],temporary);
 				// reorder
-				var reorder = []
+				var reorder = {}
+				if(query['cli']){
+					reorder.id = data[i].id;
+				}
 				reorder.name = data[i].name;
 				reorder.tax_code = data[i].tax_code;
 				reorder.type = data[i].type;
@@ -125,11 +132,12 @@ let requestSegments = req.originalUrl.split('?')[0].split('/');
 				reorder.amount = data[i].amount;
 				data[i]=reorder;
 				header = Object.keys(reorder);
-				console.log(data[i]);
+				
 			}
 			
+			
 			if(query['cli']){
-				res.send({"summary":page, "header":header, "item":list});
+				res.send({"summary":page, "item":data});
 				return;
 			}
 			
